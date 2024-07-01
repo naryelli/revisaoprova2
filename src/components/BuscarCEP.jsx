@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function BuscarCEP(){
    const [cep, setCep] = useState('')
    const [endereco, setEndereco] = useState (null)
+   const[erro, setErro] = useState (null)
    
   const fetchData = async () => {
     try{
@@ -11,7 +12,7 @@ export default function BuscarCEP(){
         const data = await response.json()
         setEndereco(data)
     } catch (error) {
-        console.error(error)
+        console.log(error)
     }
   }
 
@@ -27,7 +28,9 @@ export default function BuscarCEP(){
         ></input>
 
         <button onClick={fetchData}>Buscar</button>
-
+       {erro &&(
+        <p>CEP nao encontrado.</p>
+       )}
         {endereco && (
             <div className="endereco">
             <p>Rua: {endereco.logradouro}</p>
